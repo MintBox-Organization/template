@@ -22,11 +22,11 @@
           <div class="item-num">
             <div class="left">
               <div class="num">{{ itemInfo.items }}</div>
-              <div class="text">Items</div>
+              <div class="text">{{ $t("mint.items") }}</div>
             </div>
             <div class="right">
               <div class="num">{{ itemInfo.owners }}</div>
-              <div class="text">Owners</div>
+              <div class="text">{{ $t("mint.owners") }}</div>
             </div>
           </div>
         </div>
@@ -47,8 +47,10 @@
           <div class="nft-footer">
             <div class="nft-name">{{ item.name + " #" + item.tokenId }}</div>
             <div class="nft-info">
-              <span>Price</span>
-              <span class="price" v-if="item.price == '0'">Free</span>
+              <span>{{ $t("mint.price") }}</span>
+              <span class="price" v-if="item.price == '0'">{{
+                $t("mint.free")
+              }}</span>
               <span v-else>
                 <span class="price">{{ item.price }}</span>
                 {{ item.unit }}
@@ -56,7 +58,7 @@
             </div>
 
             <div class="nft-owner-box" v-if="item.owner || item.status != 1">
-              owner: {{ formatAccount(item.owner) }}
+              {{ $t("mint.owner") }}: {{ formatAccount(item.owner) }}
             </div>
             <div class="nft-btn-box" v-else>
               <button
@@ -64,17 +66,17 @@
                 class="nft-btn"
                 @click="buyNftMutiple(item)"
               >
-                Buy
+                {{ $t("mint.buy") }}
               </button>
               <button
                 v-else-if="type == '1155' && item.supply != 0"
                 class="nft-btn"
                 @click="buyNft(item.tokenId)"
               >
-                Buy
+                {{ $t("mint.buy") }}
               </button>
               <button v-else class="nft-btn" @click="buyNft(item.tokenId)">
-                Buy
+                {{ $t("mint.buy") }}
               </button>
             </div>
           </div>
@@ -216,7 +218,7 @@ export default {
       const chainId = this.$store.state.chainId;
       if (this.chainId !== chainId) {
         const network = formatNetwork(this.chainId);
-        this.$message.error(`Please select the ${network} network.`);
+        this.$message.error(this.$t("upload.checkNetwork", { network }));
         return false;
       }
       return true;
@@ -268,9 +270,7 @@ export default {
       const owner = await contracts.signer.getAddress();
       const balance = await contracts.ERC20(payToken).balanceOf(owner);
       if (price.gt(balance)) {
-        this.$message.error(
-          "Payment failed due to insufficient wallet balance."
-        );
+        this.$message.error(this.$t("mint.paymentFail"));
       }
       return price.gt(balance);
     },

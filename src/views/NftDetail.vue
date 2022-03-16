@@ -10,26 +10,32 @@
           </p>
         </div>
         <div class="nft-info-box">
-          <p class="nft-name">Details</p>
+          <p class="nft-name">{{ $t("nftDetail.detail") }}</p>
           <table class="nft-table" border="1">
             <tr>
-              <td>Contract Address</td>
-              <td>{{ nftDetail.contractAddress | formatAccount }}</td>
+              <td>{{ $t("nftDetail.contractAddress") }}</td>
+              <td>
+                {{ nftDetail.contractAddress | formatAccount }}
+                <i
+                  class="el-icon-document-copy copy-icon"
+                  @click="copy(nftDetail.contractAddress)"
+                ></i>
+              </td>
             </tr>
             <tr>
-              <td>Token ID</td>
+              <td>{{ $t("nftDetail.tokenID") }}</td>
               <td>{{ nftDetail.tokenId }}</td>
             </tr>
             <tr>
-              <td>Token Standard</td>
+              <td>{{ $t("nftDetail.tokenStandard") }}</td>
               <td>{{ nftDetail.standard }}</td>
             </tr>
             <tr>
-              <td>Blockchain</td>
+              <td>{{ $t("nftDetail.blockchain") }}</td>
               <td>{{ nftDetail.blockchain }}</td>
             </tr>
             <tr>
-              <td>Hash</td>
+              <td>{{ $t("nftDetail.hash") }}</td>
               <td>{{ nftDetail.transactionHash }}</td>
             </tr>
           </table>
@@ -62,6 +68,20 @@ export default {
     };
   },
   methods: {
+    copy(data) {
+      let url = data;
+      let oInput = document.createElement("input");
+      oInput.value = url;
+      document.body.appendChild(oInput);
+      oInput.select();
+      console.log(oInput.value);
+      document.execCommand("Copy");
+      this.$message({
+        message: this.$t("nftDetail.copySuccess"),
+        type: "success",
+      });
+      oInput.remove();
+    },
     getDetail() {
       getNFTsCollectionItemDetail(this.cid).then((res) => {
         this.nftDetail = res.data;

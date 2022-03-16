@@ -2,7 +2,7 @@
   <div id="MyNfts" class="container">
     <div v-if="nftList.length == 0" class="empty">
       <img src="@/assets/images/empty.png" alt="" />
-      <p>No NFTs to display!</p>
+      <p>{{ $t("myNfts.noNfts") }}</p>
     </div>
     <el-row v-else>
       <el-col :lg="8" :md="8" v-for="(item, index) in nftList" :key="index">
@@ -17,21 +17,21 @@
           <div class="nft-footer">
             <div class="nft-name">{{ item.name + " #" + item.tokenId }}</div>
             <div class="nft-info">
-              <span>owner:</span>
+              <span>{{ $t("mint.owner") }}:</span>
               <span>
                 <span class="price">{{ formatAccount(item.owner) }}</span>
                 {{ item.unit }}
               </span>
             </div>
             <div class="nft-info">
-              <span>Token ID:</span>
+              <span>{{ $t("nftDetail.tokenID") }}:</span>
               <span>
                 <span class="price">{{ item.tokenId }}</span>
                 {{ item.unit }}
               </span>
             </div>
             <div class="nft-info">
-              <span>Token Hash:</span>
+              <span>{{ $t("myNfts.tokenHash") }}:</span>
               <span>
                 <span class="price">{{
                   formatAccount(item.transactionHash)
@@ -41,7 +41,7 @@
             </div>
             <div class="nft-btn-box">
               <el-button class="nft-btn" @click="download(item.url)">
-                DOWNLOAD
+                {{ $t("myNfts.download") }}
               </el-button>
             </div>
           </div>

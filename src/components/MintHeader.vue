@@ -8,32 +8,47 @@
       text-color="#000"
       active-text-color="#2A7EED"
     >
-      <el-menu-item index="/">MINT</el-menu-item>
-      <el-menu-item index="/mynfts">MY NFTS</el-menu-item>
+      <el-menu-item index="/">{{ $t("nav.mint") }}</el-menu-item>
+      <el-menu-item index="/mynfts">{{ $t("nav.myNfts") }}</el-menu-item>
     </el-menu>
-    <div v-if="!isLogin" class="connect-wallet" @click="getConnect">
-      Connect Wallet
-    </div>
-    <div v-else class="connect-wallet">
-      <el-dropdown
-        trigger="click"
-        @command="
-          (command) => {
-            handleCommand(command);
-          }
-        "
-      >
-        <div>
-          {{ formatAccount }}
-        </div>
-        <el-dropdown-menu slot="dropdown">
-          <!-- <el-dropdown-item divided command="account">
+    <div class="login-info">
+      <div v-if="!isLogin" class="connect-wallet" @click="getConnect">
+        {{ $t("nav.connectWallet") }}
+      </div>
+      <div v-else class="connect-wallet">
+        <el-dropdown
+          trigger="click"
+          @command="
+            (command) => {
+              handleCommand(command);
+            }
+          "
+        >
+          <div>
+            {{ formatAccount }}
+          </div>
+          <el-dropdown-menu slot="dropdown">
+            <!-- <el-dropdown-item divided command="account">
             <i class="el-icon-user"></i> Account</el-dropdown-item
           > -->
-          <el-dropdown-item command="logout">
-            <i class="el-icon-download rotate-right"></i>
-            Logout</el-dropdown-item
-          >
+            <el-dropdown-item command="logout">
+              <i class="el-icon-download rotate-right"></i>
+              Logout</el-dropdown-item
+            >
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+      <el-dropdown
+        trigger="click"
+        placement="bottom"
+        @command="handleLanguageCommand"
+      >
+        <span class="el-dropdown-link">
+          <i class="iconfont icon-diqiu change"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="ko">한국어</el-dropdown-item>
+          <el-dropdown-item command="en">English</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -82,6 +97,10 @@ export default {
     };
   },
   methods: {
+    handleLanguageCommand(val) {
+      this.$i18n.locale = val;
+      localStorage.setItem("mintBoxPersonal-lang", JSON.stringify(val));
+    },
     handleCommand(command) {
       switch (command) {
         case "account":
@@ -159,14 +178,22 @@ export default {
       margin: 0 35px;
     }
   }
+  .login-info {
+    display: flex;
+    align-items: center;
+  }
   .connect-wallet {
     border: 1px solid #484d72;
     padding: 5px 10px;
     font-size: 14px;
     cursor: pointer;
+    margin-right: 20px;
   }
 }
 .rotate-right {
   transform: rotate(-90deg);
+}
+.change {
+  font-size: 30px;
 }
 </style>
