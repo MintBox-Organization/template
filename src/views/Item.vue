@@ -218,7 +218,7 @@ export default {
       const chainId = this.$store.state.chainId;
       if (this.chainId !== chainId) {
         const network = formatNetwork(this.chainId);
-        this.$message.error(this.$t("upload.checkNetwork", { network }));
+        this.$message.error(this.$t("mint.checkNetwork", { network }));
         return false;
       }
       return true;
