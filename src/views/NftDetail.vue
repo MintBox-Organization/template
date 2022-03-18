@@ -128,6 +128,9 @@ export default {
           text-align: right;
         }
       }
+      .copy-icon {
+        cursor: pointer;
+      }
     }
   }
 }
