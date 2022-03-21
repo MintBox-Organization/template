@@ -130,7 +130,12 @@ export default {
       min-height: 308px;
       .image {
         width: 100%;
-        display: block;
+      }
+      /deep/ .el-image__inner {
+        width: 100%;
+        height: 309px;
+        object-fit: cover;
+        vertical-align: middle;
       }
     }
     .nft-footer {

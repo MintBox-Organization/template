@@ -57,25 +57,32 @@
               </span>
             </div>
 
-            <div class="nft-owner-box" v-if="item.owner || item.status != 1">
+            <div class="nft-owner-box" v-if="item.owner">
               {{ $t("mint.owner") }}: {{ formatAccount(item.owner) }}
             </div>
             <div class="nft-btn-box" v-else>
               <button
                 v-if="type == 'm721'"
                 class="nft-btn"
+                :disabled="item.status !== '1'"
                 @click="buyNftMutiple(item)"
               >
                 {{ $t("mint.buy") }}
               </button>
               <button
                 v-else-if="type == '1155' && item.supply != 0"
+                :disabled="item.status !== '1'"
                 class="nft-btn"
                 @click="buyNft(item.tokenId)"
               >
                 {{ $t("mint.buy") }}
               </button>
-              <button v-else class="nft-btn" @click="buyNft(item.tokenId)">
+              <button
+                v-else
+                class="nft-btn"
+                @click="buyNft(item.tokenId)"
+                :disabled="item.status !== '1'"
+              >
                 {{ $t("mint.buy") }}
               </button>
             </div>
@@ -619,6 +626,10 @@ export default {
             border: 1px solid #a27ec6;
             border-radius: 5px;
             cursor: pointer;
+          }
+          .nft-btn:disabled {
+            background: #ccc;
+            border: none;
           }
         }
         .nft-owner-box {
