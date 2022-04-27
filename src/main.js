@@ -10,6 +10,7 @@ import "@/assets/css/style.less";
 import "@/assets/font/iconfont.css";
 import { i18n } from "./locale/i18n";
 
+document.title = "MintBox";
 Vue.config.productionTip = false;
 Vue.use(ElementUI, { locale });
 new Vue({

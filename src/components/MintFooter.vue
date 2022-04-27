@@ -1,6 +1,11 @@
 <template>
   <div id="mintFooter" class="container">
     Power by
+
+    <a href="https://mintbox.vip/#/" target="_blank" style="margin: 0 10px"
+      >MINTBOX</a
+    >
+    &
     <a href="https://4everland.org/" target="_blank" style="margin-left: 10px"
       >4EVERLAND</a
     >
