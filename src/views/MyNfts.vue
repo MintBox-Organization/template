@@ -94,6 +94,7 @@ export default {
     },
   },
   created() {
+    document.title = "MintBox-My NFTs";
     this.init();
   },
 };

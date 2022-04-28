@@ -85,6 +85,7 @@ export default {
     getDetail() {
       getNFTsCollectionItemDetail(this.cid).then((res) => {
         this.nftDetail = res.data;
+        document.title = "MintBox-" + this.nftDetail.name;
       });
     },
   },

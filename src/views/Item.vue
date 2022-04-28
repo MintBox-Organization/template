@@ -140,6 +140,8 @@ export default {
     getNftsItemInfo() {
       getNFTsCollectionItem(this.deployment).then((res) => {
         this.itemInfo = res.data;
+
+        document.title = "MintBox-" + this.itemInfo.name;
       });
     },
     getNftsItemList() {
@@ -593,6 +595,7 @@ export default {
     .nft-item {
       border: 1px solid #e0e2e4;
       margin: 25px;
+      text-align: center;
       .nft-img {
         width: 300px;
         height: 300px;
