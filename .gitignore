@@ -23,4 +23,4 @@ pnpm-debug.log*
 *.sw?
 
 # hostingConfig
-hostingConfig.json
+.hostingConfig.json

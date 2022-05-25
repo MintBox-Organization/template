@@ -3,16 +3,8 @@
     <div class="top">
       <div class="container item-container">
         <div class="top-box">
-          <div class="back">
-            <a href="https://www.mintbox.vip/#/explore">
-              <el-button>
-                <i class="el-icon-back"></i>
-                돌아가기</el-button
-              >
-            </a>
-          </div>
-          <div class="time-cut" v-if="nftList[0].status == 0">
-            <span class="text"> 오픈까지 </span>
+          <div class="time-cut" v-if="msec > 0">
+            <span class="text"> {{ $t("mint.countdown") }} </span>
             <span class="num"
               >{{ this.hour | numFormat }} : {{ this.minute | numFormat }} :
               {{ this.second | numFormat }}
@@ -80,7 +72,7 @@
             <div class="nft-btn-box" v-else>
               <button
                 class="nft-btn"
-                :disabled="item.status !== '1' && this.whiteListData"
+                :disabled="item.status !== '1' || whiteListData"
                 @click="buyNftMutiple()"
               >
                 {{ $t("mint.buy") }}
@@ -144,6 +136,7 @@ export default {
       pageSize: 15,
       shouldApprove: true,
       endTime: 0,
+      msec: 0,
       hour: 0,
       minute: 0,
       second: 0,
@@ -163,7 +156,7 @@ export default {
     getNftsItemInfo() {
       getNFTsCollectionItem(this.deployment).then((res) => {
         this.itemInfo = res.data;
-        // this.endTime = res.data.mintStart;
+        this.endTime = res.data.mintStart;
         document.title = "MintBox-" + this.itemInfo.name;
       });
     },
@@ -273,6 +266,7 @@ export default {
       const end = this.endTime;
       const now = Date.parse(new Date());
       const msec = end - now;
+      this.msec = msec;
       if (msec <= 0) {
         return;
       }
@@ -312,11 +306,6 @@ export default {
         text-align: center;
         padding: 40px;
         box-sizing: border-box;
-        position: relative;
-        .back {
-          position: absolute;
-          left: 60px;
-        }
         .time-cut {
           width: 250px;
           height: 50px;

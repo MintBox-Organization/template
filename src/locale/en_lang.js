@@ -13,6 +13,8 @@ export default {
     buy: "Buy",
     paymentFail: "Payment failed due to insufficient wallet balance.",
     checkNetwork: "Please select the {network} network.",
+    back: "Back",
+    countdown: "Countdown",
   },
   nftDetail: {
     detail: "Detail",

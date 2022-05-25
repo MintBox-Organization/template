@@ -13,6 +13,8 @@ export default {
     buy: "구매",
     paymentFail: "심볼을 입력해주세요.",
     checkNetwork: "{network} 네트워크를 선택하십시오.",
+    back: "돌아가기",
+    countdown: "오픈까지",
   },
   nftDetail: {
     detail: "디테일",
