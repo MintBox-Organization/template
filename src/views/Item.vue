@@ -225,9 +225,15 @@ export default {
     },
     checkChainId() {
       const chainId = this.$store.state.chainId;
+
       if (this.chainId !== chainId) {
         const network = formatNetwork(this.chainId);
         this.$message.error(this.$t("mint.checkNetwork", { network }));
+
+        window.web3.currentProvider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x" + this.chainId.toString(16) }],
+        });
         return false;
       }
       return true;
