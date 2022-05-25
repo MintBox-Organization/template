@@ -8,15 +8,6 @@ const routes = [
     path: "/",
     name: "exploreDetail",
     component: () => import("../views/Item.vue"),
-    redirect: () => {
-      console.log(Store);
-      // if (
-      //   Store.state.contractAddr == "0x429c1b35d5eEB029c6293Ae18a65cb72cb1A441f"
-      // ) {
-      //   return "/blind";
-      // }
-      return "/blind";
-    },
   },
   {
     path: "/blind",
