@@ -53,7 +53,6 @@ service.interceptors.response.use(
       if (res.code === 400) {
         // to re-login
         connect();
-        return;
       }
       // Message({
       //   message: res.message || "Error",

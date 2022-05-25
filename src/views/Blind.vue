@@ -72,7 +72,7 @@
             <div class="nft-btn-box" v-else>
               <button
                 class="nft-btn"
-                :disabled="item.status !== '1' || whiteListData"
+                :disabled="item.status !== '1' || whiteListData || isClaimed"
                 @click="buyNftMutiple()"
               >
                 {{ $t("mint.buy") }}
@@ -114,6 +114,9 @@ export default {
     deployment() {
       return this.$store.state.contractAddr;
     },
+    account() {
+      return this.$store.state.account;
+    },
   },
   filters: {
     numFormat(num) {
@@ -121,6 +124,16 @@ export default {
         return "0" + num;
       }
       return num;
+    },
+  },
+  watch: {
+    async account(value) {
+      if (!value) {
+        return;
+      } else {
+        const isClaimed = await this.MetaN1.isClaimed(this.account);
+        this.isClaimed = isClaimed;
+      }
     },
   },
   data() {
@@ -142,6 +155,8 @@ export default {
       second: 0,
       interval: null,
       whiteListData: true,
+      MetaN1: null,
+      isClaimed: false,
     };
   },
   methods: {
@@ -173,10 +188,6 @@ export default {
     },
     checkWhiteList() {
       getWhiteList(this.deployment).then((res) => {
-        console.log(res);
-        if (res.code != 200) {
-          return;
-        }
         if (res.data.in) {
           if (res.data.left > 0) {
             this.whiteListData = false;
@@ -245,12 +256,12 @@ export default {
       }
       return true;
     },
-    mint() {
-      const signerOrProvider = providersObj.getSigner();
-      console.log(signerOrProvider);
-      const MetaN1 = MetaN1__factory.connect(this.deployment, signerOrProvider);
-      console.log(MetaN1);
-      MetaN1.mint();
+    async mint() {
+      const tx = await this.MetaN1.mint();
+      const receipt = await tx.wait();
+      if (receipt) {
+        this.success();
+      }
     },
     success() {
       this.$message({
@@ -283,9 +294,15 @@ export default {
       }
     },
   },
-  mounted() {
+  async mounted() {
     this.init();
     this.countdown();
+    const signerOrProvider = await providersObj.getSigner();
+    const MetaN1 = await MetaN1__factory.connect(
+      this.deployment,
+      signerOrProvider
+    );
+    this.MetaN1 = MetaN1;
   },
 };
 </script>
