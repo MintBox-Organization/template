@@ -10,7 +10,7 @@
           </el-image>
           <p class="item-name">{{ itemInfo.name }}</p>
           <div class="item-link">
-            <a href="www.mintbox.com">{{ itemInfo.site }}</a>
+            <a :href="itemInfo.site">{{ itemInfo.site }}</a>
             <i
               class="el-icon-document-copy copy-icon"
               @click="copy(itemInfo.site)"

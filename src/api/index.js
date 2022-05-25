@@ -54,3 +54,10 @@ export function getNFTsCollectionItemDetail(cid) {
     method: "get",
   });
 }
+
+export function getWhiteList(projectId) {
+  return request({
+    url: `/blind/${projectId}`,
+    method: "get",
+  });
+}

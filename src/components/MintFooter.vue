@@ -44,5 +44,9 @@ export default {
       color: #2a7eed;
     }
   }
+  a {
+    font-size: 16px;
+    color: #2a7eed;
+  }
 }
 </style>
