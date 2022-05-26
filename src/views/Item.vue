@@ -519,11 +519,7 @@ export default {
     },
   },
   mounted() {
-    if (this.deployment == "0x429c1b35d5eEB029c6293Ae18a65cb72cb1A441f") {
-      this.$router.push("/blind");
-    } else {
-      this.init();
-    }
+    this.init();
   },
 };
 </script>

@@ -27,13 +27,13 @@ export async function connect() {
     });
   }
 
-  const isUnlocked = await window.ethereum._metamask.isUnlocked();
-  if (!isUnlocked) {
-    return Message({
-      message: "Metamask has been locked, please unlock it.",
-      type: "warning",
-    });
-  }
+  // const isUnlocked = await window.ethereum._metamask.isUnlocked();
+  // if (!isUnlocked) {
+  //   return Message({
+  //     message: "Metamask has been locked, please unlock it.",
+  //     type: "warning",
+  //   });
+  // }
 
   // if (!isNetworkSupported(parseInt(window.ethereum.chainId))) {
   //   return Message.error("Please MetaMask change your network to `Rinkeby`.");

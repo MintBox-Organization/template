@@ -241,26 +241,39 @@ export default {
       }
     },
     async buyNftMutiple() {
+      this.fullscreenLoading = true;
       const isToken = await this.checkToken();
       if (!isToken) {
+        this.fullscreenLoading = false;
         return;
       }
       this.mint();
     },
     checkChainId() {
       const chainId = this.$store.state.chainId;
+
       if (this.chainId !== chainId) {
         const network = formatNetwork(this.chainId);
         this.$message.error(this.$t("mint.checkNetwork", { network }));
+
+        window.web3.currentProvider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x" + this.chainId.toString(16) }],
+        });
         return false;
       }
       return true;
     },
     async mint() {
-      const tx = await this.MetaN1.mint();
-      const receipt = await tx.wait();
-      if (receipt) {
-        this.success();
+      try {
+        const tx = await this.MetaN1.mint();
+        const receipt = await tx.wait();
+        if (receipt) {
+          this.fullscreenLoading = false;
+          this.success();
+        }
+      } catch (error) {
+        this.fullscreenLoading = false;
       }
     },
     success() {
@@ -332,6 +345,7 @@ export default {
           color: #564e65;
           border-radius: 5px;
           margin-bottom: 20px;
+          padding: 0 10px;
           .text {
             font-size: 16px;
             margin-right: 5px;

@@ -7821,10 +7821,10 @@
   "resolved" "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
   "version" "1.4.1"
 
-"metan1@^0.1.3":
-  "integrity" "sha512-FU/kyiifA7OXVnGLJeWhgPdwkqu5JBXVESrmT0Z7Nx0CyaJSSmXsvbn99yP1FQOSjHQgzCmI59sknPj3fAvecg=="
-  "resolved" "https://registry.npmjs.org/metan1/-/metan1-0.1.3.tgz"
-  "version" "0.1.3"
+"metan1@^0.1.4":
+  "integrity" "sha512-mZEuKC2vnc3bMV8EM1dFqz74LQL4Fy5q5uEAwVv9gOZ4mjQAzrAQVb4TC73WSuWsoAV8Nft4FFK1y62L7h6lBA=="
+  "resolved" "https://registry.npmjs.org/metan1/-/metan1-0.1.4.tgz"
+  "version" "0.1.4"
   dependencies:
     "solc-0.8.9" "npm:solc@0.8.9"
     "solidity-docgen" "^0.5.16"

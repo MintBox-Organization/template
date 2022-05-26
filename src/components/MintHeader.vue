@@ -8,7 +8,14 @@
       text-color="#000"
       active-text-color="#2A7EED"
     >
-      <el-menu-item index="/">{{ $t("nav.mint") }}</el-menu-item>
+      <el-menu-item
+        :index="
+          deployment == '0xCA668423376Ee23ED40746275A79f626b24e9DAF'
+            ? blindPage
+            : homePgae
+        "
+        >{{ $t("nav.mint") }}</el-menu-item
+      >
       <el-menu-item index="/mynfts">{{ $t("nav.myNfts") }}</el-menu-item>
     </el-menu>
     <div class="login-info">
@@ -58,7 +65,12 @@
 import { formatNetwork, isNetworkSupported } from "@/utils";
 import { UPDATE_ACCOUNT, UPDATE_CHAINID } from "@/store";
 import contracts from "@/contracts";
-import { connect, getToken, removeToken } from "@/utils/auth";
+import {
+  setContractAddress,
+  connect,
+  getToken,
+  removeToken,
+} from "@/utils/auth";
 
 export default {
   computed: {
@@ -83,6 +95,9 @@ export default {
       }
       return account;
     },
+    deployment() {
+      return this.$store.state.contractAddr;
+    },
   },
   data() {
     return {
@@ -94,6 +109,8 @@ export default {
       sig: "",
       recoveredAddress: "",
       isLogin: false,
+      homePgae: "/",
+      blindPage: "/blind",
     };
   },
   methods: {
@@ -154,10 +171,18 @@ export default {
   watch: {
     $route: "getIsLogin",
   },
-  created() {
+  async created() {
+    if (!this.deployment) {
+      await setContractAddress();
+    }
     this.checkState();
     this.getIsLogin();
     this.listen();
+  },
+  mounted() {
+    if (this.deployment == "0xCA668423376Ee23ED40746275A79f626b24e9DAF") {
+      this.$router.push("/blind");
+    }
   },
 };
 </script>
