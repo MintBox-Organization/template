@@ -7,7 +7,7 @@
       <el-main>
         <router-view />
       </el-main>
-      <el-footer height="120px">
+      <el-footer height="100px">
         <mint-footer />
       </el-footer>
     </el-container>

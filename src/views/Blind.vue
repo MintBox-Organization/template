@@ -177,6 +177,8 @@ export default {
     getNftsItemInfo() {
       getNFTsCollectionItem(this.deployment).then((res) => {
         this.itemInfo = res.data;
+        this.$store.commit("update-logo", res.data.logo);
+        this.$store.commit("update-name", res.data.name);
         this.endTime = res.data.mintStart;
         document.title = "MintBox-" + this.itemInfo.name;
         this.countdown();
@@ -491,6 +493,7 @@ export default {
   .pagination {
     text-align: center;
     margin: 40px 0;
+    margin-bottom: 200px;
   }
 }
 </style>

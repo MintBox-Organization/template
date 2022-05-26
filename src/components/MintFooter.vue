@@ -1,7 +1,6 @@
 <template>
   <div id="mintFooter" class="container">
-    Power by
-
+    Powered by
     <a href="https://mintbox.vip/#/" target="_blank" style="margin: 0 10px"
       >MINTBOX</a
     >
@@ -29,7 +28,7 @@ export default {
 #mintFooter {
   display: flex;
   align-items: center;
-  height: 120px;
+  height: 100px;
   .logo {
     height: 50px;
   }

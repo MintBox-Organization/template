@@ -1,5 +1,15 @@
 <template>
   <div id="mintNav" class="hidden-sm-and-down">
+    <router-link to="/">
+      <div class="logo-box">
+        <el-image
+          class="logo"
+          style="width: 50px; height: 50px"
+          :src="logo"
+        ></el-image>
+        <h4 style="color: #666">{{ name }}</h4>
+      </div>
+    </router-link>
     <el-menu
       class="el-menu-mint"
       :default-active="activePath"
@@ -8,14 +18,7 @@
       text-color="#000"
       active-text-color="#2A7EED"
     >
-      <el-menu-item
-        :index="
-          deployment == '0xCA668423376Ee23ED40746275A79f626b24e9DAF'
-            ? blindPage
-            : homePgae
-        "
-        >{{ $t("nav.mint") }}</el-menu-item
-      >
+      <el-menu-item index="/">{{ $t("nav.mint") }}</el-menu-item>
       <el-menu-item index="/mynfts">{{ $t("nav.myNfts") }}</el-menu-item>
     </el-menu>
     <div class="login-info">
@@ -97,6 +100,12 @@ export default {
     },
     deployment() {
       return this.$store.state.contractAddr;
+    },
+    logo() {
+      return this.$store.state.logo;
+    },
+    name() {
+      return this.$store.state.name;
     },
   },
   data() {
@@ -185,9 +194,18 @@ export default {
 #mintNav {
   display: flex;
   align-items: center;
-  .logo {
-    height: 50px;
+  .logo-box {
+    display: flex;
+    align-items: center;
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-left: 50px;
+      margin-right: 30px;
+    }
   }
+
   .el-menu-mint {
     border: none;
     margin: auto;
