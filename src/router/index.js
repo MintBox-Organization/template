@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: "/blind",
-    name: "blindetail",
+    name: "blinDetail",
     component: () => import("../views/Blind.vue"),
   },
   {

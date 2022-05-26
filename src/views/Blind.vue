@@ -109,7 +109,7 @@ if (!window.ethereum) {
 }
 const providersObj = new providers.Web3Provider(window.ethereum);
 export default {
-  name: "exploreDetail",
+  name: "blinDetail",
   computed: {
     deployment() {
       return this.$store.state.contractAddr;
@@ -148,7 +148,7 @@ export default {
       pageSize: 15,
       shouldApprove: true,
       endTime: 0,
-      msec: 0,
+      msec: null,
       hour: 0,
       minute: 0,
       second: 0,
@@ -166,12 +166,20 @@ export default {
       this.getNftsItemInfo();
       this.getNftsItemList();
       this.checkWhiteList();
+      const signerOrProvider = await providersObj.getSigner();
+      const MetaN1 = await MetaN1__factory.connect(
+        this.deployment,
+        signerOrProvider
+      );
+      this.MetaN1 = MetaN1;
+      this.checkClaimed();
     },
     getNftsItemInfo() {
       getNFTsCollectionItem(this.deployment).then((res) => {
         this.itemInfo = res.data;
         this.endTime = res.data.mintStart;
         document.title = "MintBox-" + this.itemInfo.name;
+        this.countdown();
       });
     },
     getNftsItemList() {
@@ -248,10 +256,16 @@ export default {
         setTimeout(() => {
           that.checkClaimed();
         }, 500);
-        return;
+      } else {
+        try {
+          const isClaimed = await this.MetaN1.isClaimed(this.account);
+          if (isClaimed) {
+            this.isClaimed = isClaimed;
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
-      const isClaimed = await this.MetaN1.isClaimed(this.account);
-      this.isClaimed = isClaimed;
     },
     async buyNftMutiple() {
       this.fullscreenLoading = true;
@@ -304,17 +318,15 @@ export default {
       const now = Date.parse(new Date());
       const msec = end - now;
       this.msec = msec;
-      if (msec <= 0) {
-        return;
-      }
       this.second = (msec / 1000) % 60;
       this.minute = parseInt((msec / 1000 / 60) % 60);
       this.hour = parseInt(msec / 1000 / 60 / 60);
 
       const that = this;
-
       if (msec === 0) {
         this.init();
+      } else if (msec < 0) {
+        return;
       } else {
         this.interval = setTimeout(that.countdown, 1000);
       }
@@ -322,14 +334,6 @@ export default {
   },
   async mounted() {
     this.init();
-    this.countdown();
-    const signerOrProvider = await providersObj.getSigner();
-    const MetaN1 = await MetaN1__factory.connect(
-      this.deployment,
-      signerOrProvider
-    );
-    this.MetaN1 = MetaN1;
-    this.checkClaimed();
   },
 };
 </script>
