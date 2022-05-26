@@ -518,8 +518,13 @@ export default {
       }, 500);
     },
   },
-  mounted() {
+  created() {
     this.init();
+  },
+  mounted() {
+    if (this.deployment == "0xCA668423376Ee23ED40746275A79f626b24e9DAF") {
+      this.$router.push("/blind");
+    }
   },
 };
 </script>

@@ -38,6 +38,12 @@
               <td>{{ $t("nftDetail.hash") }}</td>
               <td>{{ nftDetail.transactionHash }}</td>
             </tr>
+            <tr>
+              <td>{{ $t("nftDetail.description") }}</td>
+              <td>
+                {{ nftDetail.description || "-" }}
+              </td>
+            </tr>
           </table>
         </div>
       </el-col>
@@ -101,8 +107,10 @@ export default {
   .nft-img-box,
   .nft-info-box {
     width: 100%;
-    max-width: 500px;
     margin: 0 auto;
+    padding: 0 20px;
+    padding-bottom: 50px;
+    box-sizing: border-box;
   }
   .nft-img {
     width: 100%;

@@ -131,8 +131,7 @@ export default {
       if (!value) {
         return;
       } else {
-        const isClaimed = await this.MetaN1.isClaimed(this.account);
-        this.isClaimed = isClaimed;
+        this.checkClaimed();
       }
     },
   },
@@ -204,6 +203,9 @@ export default {
       this.getNftsItemList();
     },
     goToDetail(item) {
+      if (!item.cid) {
+        return;
+      }
       let cid = item.cid.replace("ipfs://", "");
       this.$router.push(`/nftDetail/${cid}`);
     },
@@ -240,6 +242,17 @@ export default {
         return true;
       }
     },
+    async checkClaimed() {
+      let that = this;
+      if (!this.account) {
+        setTimeout(() => {
+          that.checkClaimed();
+        }, 500);
+        return;
+      }
+      const isClaimed = await this.MetaN1.isClaimed(this.account);
+      this.isClaimed = isClaimed;
+    },
     async buyNftMutiple() {
       this.fullscreenLoading = true;
       const isToken = await this.checkToken();
@@ -251,7 +264,6 @@ export default {
     },
     checkChainId() {
       const chainId = this.$store.state.chainId;
-
       if (this.chainId !== chainId) {
         const network = formatNetwork(this.chainId);
         this.$message.error(this.$t("mint.checkNetwork", { network }));
@@ -271,6 +283,7 @@ export default {
         if (receipt) {
           this.fullscreenLoading = false;
           this.success();
+          this.$router.push("/mynfts");
         }
       } catch (error) {
         this.fullscreenLoading = false;
@@ -316,6 +329,7 @@ export default {
       signerOrProvider
     );
     this.MetaN1 = MetaN1;
+    this.checkClaimed();
   },
 };
 </script>
@@ -458,6 +472,7 @@ export default {
           .nft-btn:disabled {
             background: #ccc;
             border: none;
+            cursor: not-allowed;
           }
         }
         .nft-owner-box {

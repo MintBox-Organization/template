@@ -22,12 +22,14 @@ export default {
     tokenID: "Token ID",
     tokenStandard: "Token Standard",
     blockchain: "Blockchain	",
-    hash: " Hash",
+    hash: "Hash",
+    description: "Description",
     copySuccess: "Copy success",
   },
   myNfts: {
     noNfts: "No NFTs to display!",
     tokenHash: "Token Hash",
     download: "DOWNLOAD",
+    tips: "The NFT you purchased may be delayed due to network congestion, you can click the button to refresh in normal display.",
   },
 };

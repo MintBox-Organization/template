@@ -23,11 +23,13 @@ export default {
     tokenStandard: "토큰 스탠다드",
     blockchain: "블록체인",
     hash: "해시",
+    description: "묘사",
     copySuccess: "복사 성공",
   },
   myNfts: {
     noNfts: "표시할 NFT가 없습니다!",
     download: "다운로드",
     tokenHash: "토큰 해시",
+    tips: "네트워크 문제로 인해 구매한 NFT  디스플레이가 지연될 수 있습니다. 버튼을 클릭하여 새로 고치하세요.",
   },
 };

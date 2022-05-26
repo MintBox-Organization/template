@@ -1,5 +1,15 @@
 <template>
   <div id="MyNfts" class="container">
+    <el-alert type="warning" center show-icon>
+      <div slot="title">
+        {{ $t("myNfts.tips") }}
+        <i
+          class="el-icon-refresh-right"
+          @click="reload"
+          style="cursor: pointer"
+        ></i>
+      </div>
+    </el-alert>
     <div v-if="nftList.length == 0" class="empty">
       <img src="@/assets/images/empty.png" alt="" />
       <p>{{ $t("myNfts.noNfts") }}</p>
@@ -8,7 +18,12 @@
       <el-col :lg="8" :md="8" v-for="(item, index) in nftList" :key="index">
         <el-card class="item" :body-style="{ padding: '0px' }" shadow="never">
           <div class="nft-body">
-            <el-image :src="item.url" class="image" lazy>
+            <el-image
+              :src="item.url"
+              class="image"
+              lazy
+              @click="goToDetail(item)"
+            >
               <div slot="error">
                 <img src="@/assets/images/default.png" alt="" class="image" />
               </div>
@@ -81,6 +96,13 @@ export default {
         this.nftList = res.data.list;
       });
     },
+    goToDetail(item) {
+      if (!item.cid) {
+        return;
+      }
+      let cid = item.cid.replace("ipfs://", "");
+      this.$router.push(`/nftDetail/${cid}`);
+    },
     download(img) {
       window.open(img);
     },
@@ -91,6 +113,9 @@ export default {
         );
       }
       return account;
+    },
+    reload() {
+      window.location.reload();
     },
   },
   created() {
@@ -131,6 +156,7 @@ export default {
       min-height: 308px;
       .image {
         width: 100%;
+        cursor: pointer;
       }
       /deep/ .el-image__inner {
         width: 100%;
