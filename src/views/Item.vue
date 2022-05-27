@@ -132,7 +132,10 @@ export default {
   methods: {
     async init() {
       if (!this.deployment) {
-        await setContractAddress();
+        const deployment = await setContractAddress();
+        if (deployment == "0x59c9BA66AfDbB1a26D3cDB56Ba441B52d39b2F06") {
+          this.$router.push("/blind");
+        }
       }
       this.getNftsItemInfo();
       this.getNftsItemList();
@@ -521,11 +524,7 @@ export default {
   created() {
     this.init();
   },
-  mounted() {
-    if (this.deployment == "0xCA668423376Ee23ED40746275A79f626b24e9DAF") {
-      this.$router.push("/blind");
-    }
-  },
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

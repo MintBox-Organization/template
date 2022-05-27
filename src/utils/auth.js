@@ -76,4 +76,5 @@ export async function setContractAddress() {
     deployment = data.contractAddress;
   }
   store.commit(UPDATE_CONTRACTADDR, deployment);
+  return deployment;
 }
