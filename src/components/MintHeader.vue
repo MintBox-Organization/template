@@ -179,9 +179,6 @@ export default {
     $route: "getIsLogin",
   },
   async created() {
-    if (!this.deployment) {
-      await setContractAddress();
-    }
     this.checkState();
     this.getIsLogin();
     this.listen();
