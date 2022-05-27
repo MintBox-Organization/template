@@ -118,8 +118,6 @@ export default {
       sig: "",
       recoveredAddress: "",
       isLogin: false,
-      homePgae: "/",
-      blindPage: "/blind",
     };
   },
   methods: {

@@ -6,11 +6,6 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "exploreDetail",
-    component: () => import("../views/Item.vue"),
-  },
-  {
-    path: "/blind",
     name: "blinDetail",
     component: () => import("../views/Blind.vue"),
   },
