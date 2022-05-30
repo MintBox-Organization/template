@@ -18,7 +18,7 @@
     "element-ui": "^2.15.6",
     "ethers": "^5.5.3",
     "js-cookie": "^3.0.1",
-    "metan1": "^0.1.4",
+    "metan1": "^0.1.5",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-i18n": "^8.0.0",
