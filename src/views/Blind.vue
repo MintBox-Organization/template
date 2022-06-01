@@ -95,7 +95,7 @@
   </div>
 </template>
 <script>
-import { providers } from "ethers";
+import { BigNumber, providers } from "ethers";
 import {
   getNFTsCollectionItem,
   getNFTsCollectionItemList,
@@ -294,7 +294,9 @@ export default {
     },
     async mint() {
       try {
-        const tx = await this.MetaN1.mint();
+        const tx = await this.MetaN1.mint({
+          gasLimit: BigNumber.from("300000"),
+        });
         const receipt = await tx.wait();
         if (receipt) {
           this.fullscreenLoading = false;
